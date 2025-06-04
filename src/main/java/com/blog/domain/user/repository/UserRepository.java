@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -18,13 +19,15 @@ public class UserRepository {
   }
 
   public void save(User user) {
-    String sql = "INSERT INTO user (id, nickname, password, email, profile_image_url) VALUES (?, ?, ?, ?, ?)";
+    String sql = "INSERT INTO user (id, nickname, password, email, profile_image_url, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
     jdbcTemplate.update(sql,
         user.getId().toString(),
         user.getNickname(),
         user.getPassword(),
         user.getEmail(),
-        user.getProfileImageUrl()
+        user.getProfileImageUrl(),
+        Timestamp.valueOf(user.getCreatedAt()),
+        Timestamp.valueOf(user.getUpdatedAt())
     );
   }
 
