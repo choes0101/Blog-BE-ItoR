@@ -5,6 +5,7 @@ import com.blog.domain.user.dto.SignupRequest;
 import com.blog.domain.user.repository.UserRepository;
 import com.blog.global.auth.jwtUtil.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.LocalDateTime;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -62,8 +63,8 @@ public class AuthService {
         hashedPassword,
         request.getEmail(),
         request.getProfileImageUrl(),
-        null,
-        null
+        LocalDateTime.now(),
+        LocalDateTime.now()
     );
 
     userRepository.save(newUser);
